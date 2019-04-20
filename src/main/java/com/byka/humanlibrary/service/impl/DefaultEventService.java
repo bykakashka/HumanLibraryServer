@@ -44,24 +44,24 @@ public class DefaultEventService implements EventService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 0);
 
-        return eventConverter.convert(eventRepository.getNearest(calendar.getTime(), new PageRequest(0, NEAREST_EVENT_SIZE)));
+        return eventConverter.convert(eventRepository.getNearest(calendar.getTime(), PageRequest.of(0, NEAREST_EVENT_SIZE)));
     }
 
     @Override
     public List<BookData> getCatalog(final Long eventId) {
-        final Event event = eventRepository.findOne(eventId);
+        final Event event = eventRepository.getOne(eventId);
         return bookConverter.convert(event.getBooks());
     }
 
     @Override
     public List<SessionData> getSessions(Long eventId) {
-        final Event event = eventRepository.findOne(eventId);
+        final Event event = eventRepository.getOne(eventId);
         return sessionConverter.convert(event.getSessions());
     }
 
     @Override
     public void update(EventData data) {
-        Event event = eventRepository.findOne(data.getId());
+        Event event = eventRepository.getOne(data.getId());
         event.setInfo(data.getInfo());
         eventRepository.save(event);
     }

@@ -11,8 +11,6 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends CrudRepository<News, Long> {
-    News findOne(Long id);
-
     @Query(value = "SELECT s FROM News s WHERE s.creationDate <= :date order by s.creationDate, s.id")
     List<News> getBeforeDate(@Param("date") final Date date);
 }

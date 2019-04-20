@@ -13,6 +13,6 @@ public class DefaultCityService implements CityService {
 
     @Override
     public City getById(Long id) {
-        return cityRepository.findOne(id);
+        return cityRepository.findById(id).orElse(null);
     }
 }

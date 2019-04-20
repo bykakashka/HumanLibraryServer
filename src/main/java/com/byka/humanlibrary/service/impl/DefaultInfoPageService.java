@@ -14,6 +14,6 @@ public class DefaultInfoPageService implements InfoPageService {
 
     @Override
     public InfoPage getByType(InfoTypeEnum type) {
-        return repository.findOne(type.name());
+        return repository.findById(type.name()).orElse(null);
     }
 }

@@ -21,7 +21,7 @@ public class DefaultNewsService implements NewsService {
 
     @Override
     public News findById(Long id) {
-        return newsRepository.findOne(id);
+        return newsRepository.findById(id).orElse(null);
     }
 
     @Override
