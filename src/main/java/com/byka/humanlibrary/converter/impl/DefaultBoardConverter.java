@@ -12,9 +12,10 @@ public class DefaultBoardConverter extends DefaultAbstractConverter<Board, Board
     public BoardData convert(Board board) {
         final BoardData result = new BoardData();
         result.setBookId(board.getBookId());
-        result.setMaxUsers(board.getMaxUsers());
+        result.setMaxUsers(board.getMaxUsers() - board.getRegisteredUsers().size());
         result.setBoardNo(board.getBoardNo());
         result.setBookName(board.getBook().getName());
+        result.setSessionId(board.getSessionId());
         return result;
     }
 }

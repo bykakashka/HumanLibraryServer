@@ -5,6 +5,7 @@ public class BoardData {
     private Long bookId;
     private Integer maxUsers;
     private String bookName;
+    private Long sessionId;
 
     public Integer getBoardNo() {
         return boardNo;
@@ -36,5 +37,13 @@ public class BoardData {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }
