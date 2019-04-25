@@ -1,7 +1,7 @@
 package com.byka.humanlibrary.security;
 
-import com.byka.humanlibrary.entity.UserAuth;
-import com.byka.humanlibrary.service.UserAuthService;
+import com.byka.humanlibrary.entity.User;
+import com.byka.humanlibrary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,12 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DefaultAuthenticationProvider implements AuthenticationProvider {
     @Autowired
-    private UserAuthService userAuthService;
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -27,13 +26,12 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        final Optional<UserAuth> userAuthOptional = userAuthService.findByNickname(nickname);
+        final User user = userService.findByNickname(nickname);
 
-        if (userAuthOptional.isPresent() && encoder.matches(password, userAuthOptional.get().getPass())) {
-            final UserAuth userAuth = userAuthOptional.get();
+        if (user != null && encoder.matches(password, user.getPass())) {
             List<GrantedAuthority> authorities = new ArrayList<>();
-            if (userAuth.getRoles() != null) {
-                userAuth.getRoles().forEach(role ->
+            if (user.getRoles() != null) {
+                user.getRoles().forEach(role ->
                     authorities.add(new SimpleGrantedAuthority(role.getRole()))
                 );
             }

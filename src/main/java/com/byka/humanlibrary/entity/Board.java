@@ -28,17 +28,17 @@ public class Board {
     @JoinColumn(name = "BOOK_ID", insertable = false, updatable = false)
     private Book book;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USER_TO_BOARD",
             joinColumns = {
                 @JoinColumn(name = "BOARD_NO"),
                     @JoinColumn(name = "SESSION_ID")
             },
             inverseJoinColumns = {
-                @JoinColumn(name = "NICKNAME")
+                @JoinColumn(name = "USER_ID")
             }
     )
-    private List<UserAuth> registeredUsers;
+    private List<User> registeredUsers;
 
     public Integer getBoardNo() {
         return boardNo;
@@ -88,11 +88,11 @@ public class Board {
         this.sessionId = sessionId;
     }
 
-    public List<UserAuth> getRegisteredUsers() {
+    public List<User> getRegisteredUsers() {
         return registeredUsers;
     }
 
-    public void setRegisteredUsers(List<UserAuth> registeredUsers) {
+    public void setRegisteredUsers(List<User> registeredUsers) {
         this.registeredUsers = registeredUsers;
     }
 }

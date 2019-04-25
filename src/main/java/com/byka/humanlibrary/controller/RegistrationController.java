@@ -15,6 +15,6 @@ public class RegistrationController {
     @GetMapping(value = "/board/{sessionId}/{boardId}")
     @ResponseBody
     public RegistrationEvent registration(@PathVariable Integer boardId, @PathVariable Long sessionId) {
-        return boardService.register(sessionId, boardId);
+        return boardService.register(sessionId, boardId); // TODO refresh board
     }
 }

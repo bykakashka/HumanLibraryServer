@@ -1,20 +1,21 @@
 package com.byka.humanlibrary.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 public class UserToBoardPK implements Serializable {
-    private String nickname;
+    private Long userId;
 
     private Long sessionId;
 
-    private Integer boardNo;
-
-    public String getNickname() {
-        return nickname;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getSessionId() {
@@ -25,11 +26,11 @@ public class UserToBoardPK implements Serializable {
         this.sessionId = sessionId;
     }
 
-    public Integer getBoardNo() {
-        return boardNo;
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    public void setBoardNo(Integer boardNo) {
-        this.boardNo = boardNo;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }

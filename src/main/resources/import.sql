@@ -13,19 +13,16 @@ insert into Event (id, date, city_id, address, title, descr, status, info, name)
 insert into Event (id, date, city_id, address, title, descr, status) values (2, '02-11-2021', 1, 'test address', 'title', 'descr', 'NEW');
 insert into Event (id, date, city_id, address, title, descr, status) values (3, '02-11-2018', 1, 'test address', 'title', 'descr', 'NEW');
 
-insert into Users(id, name, age, gender) values (1, 'Byka', 23, 'm');
-insert into Users(id, name, age, gender) values (2, 'user1', 23, 'm');
-insert into Users(id, name, age, gender) values (3, 'user2', 23, 'm');
-insert into Users(id, name, age, gender) values (4, 'user3', 23, 'm');
-insert into Users(id, name, age, gender) values (5, 'user4', 23, 'm');
+insert into users(id, name, age, gender, nickname, pass) values (1, 'Byka', 23, 'm', 'byka', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
+insert into users(id, name, age, gender, nickname, pass) values (2, 'user1', 23, 'm', 'test1', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
+insert into users(id, name, age, gender, nickname) values (3, 'user2', 23, 'm', 'test2');
+insert into users(id, name, age, gender, nickname) values (4, 'user3', 23, 'm', 'test3');
+insert into users(id, name, age, gender, nickname) values (5, 'user4', 23, 'm', 'test4');
 
-insert into user_auth(nickname, user_id, pass) values ('bykakashka', '1', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
-insert into user_auth(nickname, user_id, pass) values ('test', '2', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
-
-insert into user_role(nickname, role) VALUES ('bykakashka', 'ROLE_BOOK');
-insert into user_role(nickname, role) VALUES ('bykakashka', 'ROLE_ADMIN');
-insert into user_role(nickname, role) VALUES ('bykakashka', 'ROLE_READER');
-insert into user_role(nickname, role) VALUES ('test', 'ROLE_READER');
+insert into user_role(user_id, role) VALUES (1, 'ROLE_BOOK');
+insert into user_role(user_id, role) VALUES (1, 'ROLE_ADMIN');
+insert into user_role(user_id, role) VALUES (1, 'ROLE_READER');
+insert into user_role(user_id, role) VALUES (2, 'ROLE_READER');
 
 insert into Book(id, user_id, name, short_descr, long_descr) values (1, 1, 'Мама модели с синдромом Дауна', 'short descr', 'Синдро́м Да́уна (трисомия по хромосоме 21) — одна из форм геномной патологии, при которой чаще всего кариотип представлен 47 хромосомами вместо нормальных 46, поскольку хромосомы 21-й пары, вместо нормальных двух, представлены тремя копиями (см. также плоидность). Существует ещё две формы данного синдрома: транслокация хромосомы 21 на другие хромосомы (чаще — на 15, реже — на 14, ещё реже — на 21, 22 и Y-хромосому) — 4 % случаев, и мозаичный вариант синдрома — 5 %.
 

@@ -9,19 +9,19 @@ import javax.persistence.IdClass;
 @IdClass(UserRolePK.class)
 public class UserRole {
     @Id
-    @Column(name = "NICKNAME", nullable = false)
-    private String nickname;
+    @Column(name = "USER_ID", nullable = false)
+    private Long userId;
 
     @Id
     @Column(name = "ROLE", nullable = false)
     private String role;
 
-    public String getNickname() {
-        return nickname;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getRole() {

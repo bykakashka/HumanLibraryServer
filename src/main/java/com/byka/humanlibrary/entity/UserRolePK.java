@@ -1,18 +1,21 @@
 package com.byka.humanlibrary.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 public class UserRolePK implements Serializable {
-    private String nickname;
+    private Long userId;
 
     private String role;
 
-    public String getNickname() {
-        return nickname;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getRole() {
@@ -21,5 +24,13 @@ public class UserRolePK implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }

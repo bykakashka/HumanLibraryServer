@@ -6,6 +6,7 @@ public class BoardData {
     private Integer maxUsers;
     private String bookName;
     private Long sessionId;
+    private boolean currentRegistered;
 
     public Integer getBoardNo() {
         return boardNo;
@@ -45,5 +46,13 @@ public class BoardData {
 
     public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public boolean isCurrentRegistered() {
+        return currentRegistered;
+    }
+
+    public void setCurrentRegistered(boolean currentRegistered) {
+        this.currentRegistered = currentRegistered;
     }
 }

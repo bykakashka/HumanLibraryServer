@@ -9,4 +9,6 @@ public interface BoardService {
     List<BoardData> getBySessionId(Long sessionId);
 
     RegistrationEvent register(Long sessionId, Integer boardNo);
+
+    List<BoardData> findBoardForCurrent();
 }

@@ -6,26 +6,25 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 
 @Entity(name = "USER_TO_BOARD")
-@IdClass(UserToBoardPK.class)
+@IdClass(value = UserToBoardPK.class)
 public class UserToBoard {
     @Id
-    @Column(name = "NICKNAME")
-    private String nickname;
+    @Column(name = "USER_ID", nullable = false)
+    private Long userId;
 
     @Id
-    @Column(name = "SESSION_ID")
+    @Column(name = "SESSION_ID", nullable = false)
     private Long sessionId;
 
-    @Id
-    @Column(name = "BOARD_NO")
+    @Column(name = "BOARD_NO", nullable = false)
     private Integer boardNo;
 
-    public String getNickname() {
-        return nickname;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getSessionId() {
