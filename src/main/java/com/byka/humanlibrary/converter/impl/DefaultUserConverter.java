@@ -23,13 +23,11 @@ public class DefaultUserConverter extends DefaultAbstractConverter<User, UserDat
     }
 
     private void setRoles(User user, UserData userData) {
-        List<UserRole> userRoles = user.getRoles();
+        List<String> userRoles = user.getRoles();
 
         List<String> roles = new ArrayList<>();
         if (userRoles != null) {
-            userRoles.forEach(role ->
-                roles.add(role.getRole())
-            );
+            roles.addAll(userRoles);
         }
         userData.setRoles(roles);
     }

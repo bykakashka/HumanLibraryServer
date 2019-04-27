@@ -1,9 +1,6 @@
 package com.byka.humanlibrary.controller;
 
-import com.byka.humanlibrary.data.BoardData;
-import com.byka.humanlibrary.data.BookData;
-import com.byka.humanlibrary.data.EventData;
-import com.byka.humanlibrary.data.SessionData;
+import com.byka.humanlibrary.data.*;
 import com.byka.humanlibrary.service.BoardService;
 import com.byka.humanlibrary.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +20,25 @@ public class EventController {
 
     @GetMapping(value = "/nearest")
     @ResponseBody
-    public List<EventData> getNearest() {
-        return eventService.getLatest();
+    public ListWrapper<EventData> getNearest() {
+        return new ListWrapper<>(eventService.getLatest());
     }
 
     @GetMapping(value = "/catalog/{eventId}")
     @ResponseBody
-    public List<BookData> getCatalog(@PathVariable Long eventId) {
-        return eventService.getCatalog(eventId);
+    public ListWrapper<BookData> getCatalog(@PathVariable Long eventId) {
+        return new ListWrapper<>(eventService.getCatalog(eventId));
     }
 
     @GetMapping(value = "/sessions/{eventId}")
     @ResponseBody
-    public List<SessionData> getSessions(@PathVariable Long eventId) {
-        return eventService.getSessions(eventId);
+    public ListWrapper<SessionData> getSessions(@PathVariable Long eventId) {
+        return new ListWrapper<>( eventService.getSessions(eventId));
     }
 
     @GetMapping(value = "/boards/{sessionId}")
     @ResponseBody
-    public List<BoardData> getBoards(@PathVariable Long sessionId) {
-        return boardService.getBySessionId(sessionId);
+    public ListWrapper<BoardData> getBoards(@PathVariable Long sessionId) {
+        return new ListWrapper<>( boardService.getBySessionId(sessionId));
     }
 }

@@ -1,5 +1,8 @@
 package com.byka.humanlibrary.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.springframework.data.repository.cdi.Eager;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,7 +10,8 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // TODO sync id gen with sql import
+    @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
     @Column(name = "NAME")
@@ -19,9 +23,12 @@ public class User {
     @Column(name = "GENDER")
     private String gender;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
-    private List<UserRole> roles;
+    @JoinTable(name = "USER_ROLE",
+            joinColumns = {@JoinColumn(name = "USER_ID")}
+    )
+    @Column(name = "ROLE")
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    private List<String> roles;
 
     @Column(name = "PASS")
     private String pass;
@@ -69,14 +76,6 @@ public class User {
         this.gender = gender;
     }
 
-    public List<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<UserRole> roles) {
-        this.roles = roles;
-    }
-
     public String getPass() {
         return pass;
     }
@@ -99,5 +98,13 @@ public class User {
 
     public void setBoards(List<Board> boards) {
         this.boards = boards;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

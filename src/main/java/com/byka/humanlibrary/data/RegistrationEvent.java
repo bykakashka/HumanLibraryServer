@@ -7,6 +7,7 @@ public class RegistrationEvent implements Serializable {
     private Long sessionId;
     private Integer boardNo;
     private BoardData boardData;
+    private String errorMessage;
 
     public Boolean getSuccess() {
         return isSuccess;
@@ -38,5 +39,13 @@ public class RegistrationEvent implements Serializable {
 
     public void setBoardData(BoardData boardData) {
         this.boardData = boardData;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

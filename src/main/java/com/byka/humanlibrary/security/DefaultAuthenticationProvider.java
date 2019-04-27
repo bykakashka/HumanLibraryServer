@@ -20,19 +20,21 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String nickname = authentication.getName();
         String password = authentication.getCredentials().toString();
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         final User user = userService.findByNickname(nickname);
 
-        if (user != null && encoder.matches(password, user.getPass())) {
+        if (user != null && passwordEncoder.matches(password, user.getPass())) {
             List<GrantedAuthority> authorities = new ArrayList<>();
             if (user.getRoles() != null) {
                 user.getRoles().forEach(role ->
-                    authorities.add(new SimpleGrantedAuthority(role.getRole()))
+                    authorities.add(new SimpleGrantedAuthority(role))
                 );
             }
             return new UsernamePasswordAuthenticationToken(nickname, password, authorities); // TODO encode here?

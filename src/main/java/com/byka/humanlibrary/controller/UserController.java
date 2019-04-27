@@ -1,19 +1,18 @@
 package com.byka.humanlibrary.controller;
 
 import com.byka.humanlibrary.data.BoardData;
+import com.byka.humanlibrary.data.ListWrapper;
 import com.byka.humanlibrary.data.UserData;
+import com.byka.humanlibrary.data.UserRegistrationData;
 import com.byka.humanlibrary.service.BoardService;
 import com.byka.humanlibrary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@Controller("/user")
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
@@ -21,7 +20,7 @@ public class UserController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping
+    @GetMapping("/user")
     @ResponseBody
     public UserData auth() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -29,9 +28,15 @@ public class UserController {
         return userService.getByNicknameOrAnon(nickname);
     }
 
-    @GetMapping("/boards")
+    @GetMapping("/user/boards")
     @ResponseBody
-    public List<BoardData> getForCurrent() {
-        return boardService.findBoardForCurrent();
+    public ListWrapper<BoardData> getForCurrent() {
+        return new ListWrapper<>(boardService.findBoardForCurrent());
+    }
+
+    @PostMapping("/signin")
+    @ResponseBody
+    public UserData signIn(@RequestBody UserRegistrationData data) {
+        return userService.createUser(data);
     }
 }

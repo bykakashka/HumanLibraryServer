@@ -55,9 +55,11 @@ public class DefaultBoardService implements BoardService {
                 event.setSuccess(true);
             } else {
                 event.setSuccess(false);
+                event.setErrorMessage("Already registered for this session.");
             }
         } else {
             event.setSuccess(false);
+            event.setErrorMessage("Cannot find board to register. Please try again.");
         }
 
         return event;

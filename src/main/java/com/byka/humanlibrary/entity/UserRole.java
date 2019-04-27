@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
-@Entity
-@IdClass(UserRolePK.class)
+//@Entity
+//@IdClass(UserRolePK.class)
 public class UserRole {
     @Id
     @Column(name = "USER_ID", nullable = false)
@@ -15,6 +15,14 @@ public class UserRole {
     @Id
     @Column(name = "ROLE", nullable = false)
     private String role;
+
+    public UserRole() {
+
+    }
+
+    public UserRole(String role) {
+        this.role = role;
+    }
 
     public Long getUserId() {
         return userId;
