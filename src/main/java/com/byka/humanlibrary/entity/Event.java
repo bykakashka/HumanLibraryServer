@@ -9,7 +9,7 @@ import java.util.List;
 @Entity(name = "Event")
 public class Event {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "DATE", nullable = false)

@@ -5,25 +5,25 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
-public class NewsMediaPK implements Serializable {
-    private Long newsId;
+public class UserToBoardPK implements Serializable {
+    private Long userId;
 
-    private Long mediaId;
+    private Long sessionId;
 
-    public Long getNewsId() {
-        return newsId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setNewsId(Long newsId) {
-        this.newsId = newsId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getMediaId() {
-        return mediaId;
+    public Long getSessionId() {
+        return sessionId;
     }
 
-    public void setMediaId(Long mediaId) {
-        this.mediaId = mediaId;
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 
     public int hashCode() {

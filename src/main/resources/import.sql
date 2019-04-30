@@ -13,11 +13,16 @@ insert into Event (id, date, city_id, address, title, descr, status, info, name)
 insert into Event (id, date, city_id, address, title, descr, status) values (2, '02-11-2021', 1, 'test address', 'title', 'descr', 'NEW');
 insert into Event (id, date, city_id, address, title, descr, status) values (3, '02-11-2018', 1, 'test address', 'title', 'descr', 'NEW');
 
-insert into Users(id, name, age, gender) values (1, 'Byka', 23, 'm');
-insert into Users(id, name, age, gender) values (2, 'user1', 23, 'm');
-insert into Users(id, name, age, gender) values (3, 'user2', 23, 'm');
-insert into Users(id, name, age, gender) values (4, 'user3', 23, 'm');
-insert into Users(id, name, age, gender) values (5, 'user4', 23, 'm');
+insert into users(name, age, gender, nickname, pass) values ('Byka', 23, 'm', 'byka', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
+insert into users(name, age, gender, nickname, pass) values ('user1', 23, 'm', 'test1', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
+insert into users(name, age, gender, nickname) values ('user2', 23, 'm', 'test2');
+insert into users(name, age, gender, nickname) values ('user3', 23, 'm', 'test3');
+insert into users(name, age, gender, nickname) values ('user4', 23, 'm', 'test4');
+
+insert into user_role(user_id, role) VALUES (1, 'ROLE_BOOK');
+insert into user_role(user_id, role) VALUES (1, 'ROLE_ADMIN');
+insert into user_role(user_id, role) VALUES (1, 'ROLE_READER');
+insert into user_role(user_id, role) VALUES (2, 'ROLE_READER');
 
 insert into Book(id, user_id, name, short_descr, long_descr) values (1, 1, 'Мама модели с синдромом Дауна', 'short descr', 'Синдро́м Да́уна (трисомия по хромосоме 21) — одна из форм геномной патологии, при которой чаще всего кариотип представлен 47 хромосомами вместо нормальных 46, поскольку хромосомы 21-й пары, вместо нормальных двух, представлены тремя копиями (см. также плоидность). Существует ещё две формы данного синдрома: транслокация хромосомы 21 на другие хромосомы (чаще — на 15, реже — на 14, ещё реже — на 21, 22 и Y-хромосому) — 4 % случаев, и мозаичный вариант синдрома — 5 %.
 
@@ -160,20 +165,20 @@ insert into board(board_no, max_users, book_id, session_id) values (7, 10, 10, 5
 insert into Media(id, url, name) values (1, 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'test image');
 insert into Media(id, url, name) values (2, 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'test image 2');
 
-insert into News(id, title, text, creation_date, author_id) values (1, 'Сёння Дзень народзінаў святкуе каардынатарка Жывых Бібліятэк у Мінску Ганна Марзан', 'this is test text', '02-11-2019 15:15:00', 1);
-insert into News(id, title, text, creation_date, author_id) values (2, 'Жывая Бібліятэка зусім хутка', 'Мы гатовыя, а вы? Яшчэ трэба пазнаёміцца з астатняй часткай Жывых Кніг, з якімі можна будзе пагутарыць 16 сакавіка.
+insert into News(title, text, creation_date, author_id) values ('Сёння Дзень народзінаў святкуе каардынатарка Жывых Бібліятэк у Мінску Ганна Марзан', 'this is test text', '02-11-2019 15:15:00', 1);
+insert into News(title, text, creation_date, author_id) values ('Жывая Бібліятэка зусім хутка', 'Мы гатовыя, а вы? Яшчэ трэба пазнаёміцца з астатняй часткай Жывых Кніг, з якімі можна будзе пагутарыць 16 сакавіка.
 
 А зарэгістравацца можна тут: http://goo.gl/eY7yie
 
 Чакаем усіх заўтра ў 14:45 у прасторы Lo-fi
 
 Жывыя Кнігі. Частка 3.', '02-12-2019 15:15:00', 1);
-insert into News(id, text, creation_date, author_id) values (3, '
+insert into News(text, creation_date, author_id) values ('
 
 I am creating a website to record video using webcam. I can successfully download videos to my local computer. But what I want is to pass the data to the backend and save the min AWS S3 bucket. I tried to send the recordedblob to backend and save it to .mp4 file or .webm file. But I can''t play them after downloading from s3 bucket. I also tried to open the mp4 file uisng hex editor, copy the content, paste in a empty file and name it test.mp4. Then I found the size of new file is different and I can''t play it with player. I am wondering what''s right way to pass streaming video data. Thanks.
 
 My code to download video locally and send to backend using API gateway. ', '02-13-2019 15:15:00', 1);
-insert into News(id, text, creation_date, author_id) values (4, 'Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?', '02-14-2019 15:15:00', 1);
+insert into News(text, creation_date, author_id) values ('Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?Any thoughts? Is this a bug or something I''m just not doing right?', '02-14-2019 15:15:00', 1);
 
 insert into NEWS_MEDIA(media_Id, news_Id) values (1, 1);
 insert into NEWS_MEDIA(media_Id, news_Id) values (2, 2);

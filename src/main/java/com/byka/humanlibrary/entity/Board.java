@@ -1,6 +1,7 @@
 package com.byka.humanlibrary.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @IdClass(value = BoardPK.class)
 @Entity(name = "Board")
@@ -26,6 +27,18 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOOK_ID", insertable = false, updatable = false)
     private Book book;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_TO_BOARD",
+            joinColumns = {
+                @JoinColumn(name = "BOARD_NO"),
+                    @JoinColumn(name = "SESSION_ID")
+            },
+            inverseJoinColumns = {
+                @JoinColumn(name = "USER_ID")
+            }
+    )
+    private List<User> registeredUsers;
 
     public Integer getBoardNo() {
         return boardNo;
@@ -73,5 +86,13 @@ public class Board {
 
     public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public List<User> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void setRegisteredUsers(List<User> registeredUsers) {
+        this.registeredUsers = registeredUsers;
     }
 }

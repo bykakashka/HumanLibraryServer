@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class News {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "text", nullable = false, length = 5000)

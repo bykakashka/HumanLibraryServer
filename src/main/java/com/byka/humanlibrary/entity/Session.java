@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Session {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "SEQUENCE", nullable = false)
@@ -25,7 +25,7 @@ public class Session {
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session", fetch = FetchType.LAZY)
     private List<Board> boards;
 
     public Long getId() {
