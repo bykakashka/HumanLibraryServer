@@ -7,14 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/registration")
-public class RegistrationController {
+@RequestMapping("/session")
+public class SessionController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping(value = "/board/{sessionId}/{boardId}")
+    @GetMapping(value = "/registrate/{sessionId}/{boardId}")
     @ResponseBody
     public RegistrationEvent registration(@PathVariable Integer boardId, @PathVariable Long sessionId) {
-        return boardService.register(sessionId, boardId); // TODO refresh board
+        return boardService.register(sessionId, boardId);
+    }
+
+    @GetMapping(value = "/unregistrate/{sessionId}")
+    @ResponseBody
+    public RegistrationEvent closeRegistration(@PathVariable Long sessionId) {
+        return boardService.unregister(sessionId);
     }
 }

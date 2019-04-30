@@ -10,5 +10,7 @@ public interface BoardService {
 
     RegistrationEvent register(Long sessionId, Integer boardNo);
 
-    List<BoardData> findBoardForCurrent();
+    RegistrationEvent unregister(Long sessionId);
+
+    List<BoardData> findBoardsForCurrent();
 }

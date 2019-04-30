@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/user/boards")
     @ResponseBody
     public ListWrapper<BoardData> getForCurrent() {
-        return new ListWrapper<>(boardService.findBoardForCurrent());
+        return new ListWrapper<>(boardService.findBoardsForCurrent());
     }
 
     @PostMapping("/signin")

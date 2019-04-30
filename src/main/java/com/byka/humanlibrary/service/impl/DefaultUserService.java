@@ -2,12 +2,9 @@ package com.byka.humanlibrary.service.impl;
 
 import com.byka.humanlibrary.constants.UserRoleEnum;
 import com.byka.humanlibrary.converter.UserConverter;
-import com.byka.humanlibrary.data.BoardData;
 import com.byka.humanlibrary.data.UserData;
 import com.byka.humanlibrary.data.UserRegistrationData;
-import com.byka.humanlibrary.entity.Board;
 import com.byka.humanlibrary.entity.User;
-import com.byka.humanlibrary.entity.UserRole;
 import com.byka.humanlibrary.repository.UserRepository;
 import com.byka.humanlibrary.service.BoardService;
 import com.byka.humanlibrary.service.UserService;

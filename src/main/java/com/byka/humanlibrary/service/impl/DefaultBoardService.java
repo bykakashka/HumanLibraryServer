@@ -34,10 +34,8 @@ public class DefaultBoardService implements BoardService {
 
     @Override
     public RegistrationEvent register(Long sessionId, Integer boardNo) {
-        RegistrationEvent event = new RegistrationEvent();
-        event.setSessionId(sessionId);
-        event.setBoardNo(boardNo);
-        BoardPK pk = new BoardPK();
+        final RegistrationEvent event = new RegistrationEvent();
+        final BoardPK pk = new BoardPK();
         pk.setBoardNo(boardNo);
         pk.setSessionId(sessionId);
 
@@ -46,23 +44,45 @@ public class DefaultBoardService implements BoardService {
             Board board = boardOptional.get();
             Integer maxUsers = board.getMaxUsers();
             Long userId = userService.getCurrent().getId();
-            if (!alreadyRegistered(board.getSessionId(), userId) && maxUsers > board.getRegisteredUsers().size()) {
-                UserToBoard userToBoard = new UserToBoard();
-                userToBoard.setBoardNo(board.getBoardNo());
-                userToBoard.setSessionId(board.getSessionId());
-                userToBoard.setUserId(userId);
-                userToBoardRepository.saveAndFlush(userToBoard);
+            if (registrationAvailable(board, maxUsers, userId)) {
+                createUserToBoard(board, userId);
                 event.setSuccess(true);
+                event.setMessage("Registered successful.");
             } else {
                 event.setSuccess(false);
-                event.setErrorMessage("Already registered for this session.");
+                event.setMessage("Already registered for this session.");
             }
         } else {
             event.setSuccess(false);
-            event.setErrorMessage("Cannot find board to register. Please try again.");
+            event.setMessage("Cannot find board to register. Please try again.");
         }
 
         return event;
+    }
+
+    @Override
+    public RegistrationEvent unregister(Long sessionId) {
+        final UserToBoardPK pk = new UserToBoardPK();
+        pk.setSessionId(sessionId);
+        pk.setUserId(userService.getCurrent().getId());
+        userToBoardRepository.deleteById(pk);
+
+        final RegistrationEvent event = new RegistrationEvent();
+        event.setSuccess(true);
+        event.setMessage("You was unregistered.");
+        return event;
+    }
+
+    private boolean registrationAvailable(Board board, Integer maxUsers, Long userId) {
+        return !alreadyRegistered(board.getSessionId(), userId) && maxUsers > board.getRegisteredUsers().size();
+    }
+
+    private void createUserToBoard(Board board, Long userId) {
+        UserToBoard userToBoard = new UserToBoard();
+        userToBoard.setBoardNo(board.getBoardNo());
+        userToBoard.setSessionId(board.getSessionId());
+        userToBoard.setUserId(userId);
+        userToBoardRepository.saveAndFlush(userToBoard);
     }
 
     private boolean alreadyRegistered(Long sessionId, Long userId) {
@@ -74,7 +94,7 @@ public class DefaultBoardService implements BoardService {
     }
 
     @Override
-    public List<BoardData> findBoardForCurrent() {
+    public List<BoardData> findBoardsForCurrent() {
         User user = userService.getCurrent();
         if (user == null) {
             return Collections.emptyList();

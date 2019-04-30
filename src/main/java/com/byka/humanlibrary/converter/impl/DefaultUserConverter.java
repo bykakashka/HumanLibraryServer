@@ -3,7 +3,6 @@ package com.byka.humanlibrary.converter.impl;
 import com.byka.humanlibrary.converter.UserConverter;
 import com.byka.humanlibrary.data.UserData;
 import com.byka.humanlibrary.entity.User;
-import com.byka.humanlibrary.entity.UserRole;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

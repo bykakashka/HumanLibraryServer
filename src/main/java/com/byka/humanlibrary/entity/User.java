@@ -1,7 +1,5 @@
 package com.byka.humanlibrary.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE) // TODO sync id gen with sql import
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
