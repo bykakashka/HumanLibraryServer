@@ -8,9 +8,7 @@ import java.util.List;
 public interface BoardService {
     List<BoardData> getBySessionId(Long sessionId);
 
-    RegistrationEvent register(Long sessionId, Integer boardNo);
-
-    RegistrationEvent unregister(Long sessionId);
-
     List<BoardData> findBoardsForCurrent();
+
+    void createBoards(Long sessionId, List<BoardData> boardData);
 }

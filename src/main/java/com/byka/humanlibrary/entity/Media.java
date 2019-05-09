@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Media {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
     @Column(name = "NAME")

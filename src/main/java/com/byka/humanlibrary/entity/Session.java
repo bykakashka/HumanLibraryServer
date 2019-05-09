@@ -10,6 +10,9 @@ public class Session {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "EVENT_ID")
+    private Long eventId;
+
     @Column(name = "SEQUENCE", nullable = false)
     private Integer sequence;
 
@@ -24,6 +27,9 @@ public class Session {
 
     @Column(name = "END_DATE")
     private Date endDate;
+
+    @Column(name = "REG_AVAILABLE")
+    private Boolean isRegistrationAvailable;
 
     @OneToMany(mappedBy = "session", fetch = FetchType.LAZY)
     private List<Board> boards;
@@ -74,5 +80,21 @@ public class Session {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
+    public Boolean getRegistrationAvailable() {
+        return Boolean.TRUE.equals(isRegistrationAvailable);
+    }
+
+    public void setRegistrationAvailable(Boolean registrationAvailable) {
+        isRegistrationAvailable = registrationAvailable;
     }
 }

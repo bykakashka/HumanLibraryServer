@@ -5,6 +5,7 @@ public class BookData {
     private String name;
     private String description;
     private String longDescription;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class BookData {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

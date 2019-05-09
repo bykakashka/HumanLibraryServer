@@ -30,9 +30,6 @@ public class DefaultUserService implements UserService {
     private UserConverter userConverter;
 
     @Autowired
-    private BoardService boardService;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override

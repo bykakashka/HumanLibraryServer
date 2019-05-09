@@ -1,7 +1,9 @@
 package com.byka.humanlibrary.service.impl;
 
+import com.byka.humanlibrary.constants.EventConstants;
 import com.byka.humanlibrary.converter.BookConverter;
 import com.byka.humanlibrary.converter.EventConverter;
+import com.byka.humanlibrary.converter.EventModelConverter;
 import com.byka.humanlibrary.converter.SessionConverter;
 import com.byka.humanlibrary.data.BookData;
 import com.byka.humanlibrary.data.EventData;
@@ -35,6 +37,9 @@ public class DefaultEventService implements EventService {
     @Autowired
     private SessionConverter sessionConverter;
 
+    @Autowired
+    private EventModelConverter eventModelConverter;
+
     @Override
     public List<EventData> getLatest() {
         Calendar calendar = new GregorianCalendar();
@@ -60,9 +65,11 @@ public class DefaultEventService implements EventService {
     }
 
     @Override
-    public void update(EventData data) {
-        Event event = eventRepository.getOne(data.getId());
-        event.setInfo(data.getInfo());
+    public void createOrUpdate(EventData data) {
+        Event event = eventModelConverter.convert(data);
+        if (event.getStatus() == null) {
+            event.setStatus(EventConstants.NEW);
+        }
         eventRepository.save(event);
     }
 }

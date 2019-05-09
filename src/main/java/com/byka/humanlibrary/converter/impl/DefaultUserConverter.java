@@ -3,6 +3,7 @@ package com.byka.humanlibrary.converter.impl;
 import com.byka.humanlibrary.converter.UserConverter;
 import com.byka.humanlibrary.data.UserData;
 import com.byka.humanlibrary.entity.User;
+import com.byka.humanlibrary.entity.UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,9 +33,12 @@ public class DefaultUserConverter extends DefaultAbstractConverter<User, UserDat
     }
 
     private void fillUserInfo(User user, UserData userData) {
-        userData.setAge(user.getAge());
-        userData.setGender(user.getGender());
-        userData.setName(user.getName());
-        userData.setAge(user.getAge());
+        UserInfo userInfo = user.getUserInfo();
+        if (userInfo != null) {
+            userData.setAge(userInfo.getAge());
+            userData.setGender(userInfo.getGender());
+            userData.setName(userInfo.getName());
+            userData.setAge(userInfo.getAge());
+        }
     }
 }

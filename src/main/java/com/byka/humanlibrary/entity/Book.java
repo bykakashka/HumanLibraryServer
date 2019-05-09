@@ -8,14 +8,17 @@ public class Book {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "USER_ID")
+    private Long userId;
+
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
     private User user;
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "SHORT_DESCR", nullable = false, length = 20)
+    @Column(name = "SHORT_DESCR", length = 20)
     private String shortDescription;
 
     @Column(name = "LONG_DESCR", nullable = false, length = 5000)
@@ -59,5 +62,13 @@ public class Book {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -12,14 +12,8 @@ public class User {
     @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "AGE")
-    private Integer age;
-
-    @Column(name = "GENDER")
-    private String gender;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private UserInfo userInfo;
 
     @JoinTable(name = "USER_ROLE",
             joinColumns = {@JoinColumn(name = "USER_ID")}
@@ -48,30 +42,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getPass() {
@@ -104,5 +74,13 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

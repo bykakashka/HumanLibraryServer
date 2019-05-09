@@ -8,6 +8,7 @@ import java.util.List;
 public class News {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
     @Column(name = "text", nullable = false, length = 5000)
@@ -26,7 +27,10 @@ public class News {
     @Column(name = "TITLE")
     private String title;
 
-    @JoinColumn(name = "AUTHOR_ID", nullable = false)
+    @Column(name = "AUTHOR_ID")
+    private Long authorId;
+
+    @JoinColumn(name = "AUTHOR_ID", insertable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
@@ -80,5 +84,13 @@ public class News {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 }
