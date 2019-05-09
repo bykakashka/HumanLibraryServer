@@ -12,8 +12,6 @@ public class NewsData implements Serializable {
 
     private List<String> medias;
 
-    private String authorName;
-
     private Long authorId;
 
     public String getTitle() {
@@ -46,14 +44,6 @@ public class NewsData implements Serializable {
 
     public void setMedias(List<String> medias) {
         this.medias = medias;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
     }
 
     public Long getAuthorId() {

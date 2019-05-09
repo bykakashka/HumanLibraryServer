@@ -16,8 +16,8 @@ public class DefaultSessionConverter extends DefaultAbstractConverter<Session, S
     @Override
     public SessionData convert(Session session) {
         final SessionData result = new SessionData();
-        result.setStartDate(DateHelper.convertToStringWithTime(session.getStartDate()));
-        result.setEndDate(DateHelper.convertToStringWithTime(session.getEndDate()));
+        result.setStartDate(DateHelper.convertToStringTime(session.getStartDate()));
+        result.setEndDate(DateHelper.convertToStringTime(session.getEndDate()));
         result.setSequence(session.getSequence());
         result.setBoards(boardConverter.convert(session.getBoards()));
         result.setId(session.getId());

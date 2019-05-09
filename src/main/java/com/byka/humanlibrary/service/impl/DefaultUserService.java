@@ -6,7 +6,6 @@ import com.byka.humanlibrary.data.UserData;
 import com.byka.humanlibrary.data.UserRegistrationData;
 import com.byka.humanlibrary.entity.User;
 import com.byka.humanlibrary.repository.UserRepository;
-import com.byka.humanlibrary.service.BoardService;
 import com.byka.humanlibrary.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +27,6 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserConverter userConverter;
-
-    @Autowired
-    private BoardService boardService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;

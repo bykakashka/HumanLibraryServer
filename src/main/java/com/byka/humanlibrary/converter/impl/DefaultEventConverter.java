@@ -29,9 +29,9 @@ public class DefaultEventConverter extends DefaultAbstractConverter<Event, Event
         }
         data.setStatus(event.getStatus());
         if (EventConstants.PUBLISHED.equals(event.getStatus())) {
-            data.setDate(DateHelper.convertToStringWithTime(event.getDate()));
+            data.setDate(DateHelper.convertToStringTime(event.getDate()));
         } else {
-            data.setDate(DateHelper.convertToString(event.getDate()));
+            data.setDate(DateHelper.convertToStringDate(event.getDate()));
         }
         return data;
     }

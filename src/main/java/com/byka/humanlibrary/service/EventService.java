@@ -12,5 +12,5 @@ public interface EventService {
 
     List<SessionData> getSessions(Long eventId);
 
-    void update(EventData data);
+    void createOrUpdate(EventData data);
 }
