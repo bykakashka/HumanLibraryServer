@@ -13,7 +13,9 @@ public class DefaultNewsConverter extends DefaultAbstractConverter<News, NewsDat
         data.setId(news.getId());
         data.setTitle(news.getTitle());
         data.setText(news.getText());
-        data.setAuthorId(news.getAuthor().getId());
+        if (news.getAuthor() != null) {
+            data.setAuthorId(news.getAuthor().getId());
+        }
         return data;
     }
 }
