@@ -6,11 +6,13 @@ import com.byka.humanlibrary.data.SessionData;
 import java.util.List;
 
 public interface EventService {
-    List<EventData> getLatest();
+    List<EventData> getLatest(int pageSize);
 
     List<BookData> getCatalog(Long id);
 
     List<SessionData> getSessions(Long eventId);
 
     void createOrUpdate(EventData data);
+
+    EventData getById(Long id);
 }

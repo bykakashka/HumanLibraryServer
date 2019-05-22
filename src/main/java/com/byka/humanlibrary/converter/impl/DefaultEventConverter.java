@@ -1,6 +1,5 @@
 package com.byka.humanlibrary.converter.impl;
 
-import com.byka.humanlibrary.constants.EventConstants;
 import com.byka.humanlibrary.converter.EventConverter;
 import com.byka.humanlibrary.data.EventData;
 import com.byka.humanlibrary.entity.Event;
@@ -18,21 +17,12 @@ public class DefaultEventConverter extends DefaultAbstractConverter<Event, Event
         data.setId(event.getId());
         data.setAddress(event.getAddress());
         data.setCity(event.getCity().getNameEn()); // TODO
-
+        data.setCityId(event.getCityId());
         data.setInfo(event.getInfo());
-        String name = event.getName();
+        data.setTitle(event.getTitle());
 
-        if (name == null || name.isEmpty()) {
-            data.setName(data.getCity() + "\n" + data.getAddress());
-        } else {
-            data.setName(event.getName());
-        }
         data.setStatus(event.getStatus());
-        if (EventConstants.PUBLISHED.equals(event.getStatus())) {
-            data.setDate(DateHelper.convertToStringTime(event.getDate()));
-        } else {
-            data.setDate(DateHelper.convertToStringDate(event.getDate()));
-        }
+        data.setDate(DateHelper.convertToString(event.getDate()));
         return data;
     }
 }

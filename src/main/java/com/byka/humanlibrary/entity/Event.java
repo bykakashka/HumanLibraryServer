@@ -13,26 +13,24 @@ public class Event {
     private Long id;
 
     @Column(name = "DATE", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @Column(name = "CITY_ID", nullable = false)
+    private Long cityId;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CITY_ID", nullable = false)
+    @JoinColumn(name = "CITY_ID", nullable = false, insertable = false, updatable = false)
     private City city;
 
-    @Column(name = "ADDRESS", nullable = false)
+    @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "DESCR", nullable = false)
-    private String description;
-
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "TITLE", nullable = false, length = 500)
     private String title;
 
     @Column(name = "INFO", length = 2000)
     private String info;
-
-    @Column(name = "NAME")
-    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "EVENT_BOOK",
@@ -89,14 +87,6 @@ public class Event {
         this.books = books;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -129,12 +119,12 @@ public class Event {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
     @PrePersist

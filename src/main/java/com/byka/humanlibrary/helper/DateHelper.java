@@ -27,6 +27,10 @@ public class DateHelper {
     }
 
     public static Date convertFromStringWithTime(@NotNull String date) throws ParseException {
-        return dateTimeFormat.parse(date);
+        if (date.contains(" ")) {
+            return dateTimeFormat.parse(date);
+        } else {
+            return dateFormat.parse(date);
+        }
     }
 }

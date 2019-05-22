@@ -23,8 +23,6 @@ import java.util.*;
 public class DefaultEventService implements EventService {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEventService.class);
 
-    private static final Integer NEAREST_EVENT_SIZE = 2;
-
     @Autowired
     private EventRepository eventRepository;
 
@@ -41,15 +39,14 @@ public class DefaultEventService implements EventService {
     private EventModelConverter eventModelConverter;
 
     @Override
-    public List<EventData> getLatest() {
+    public List<EventData> getLatest(int pageSize) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 0);
 
-        return eventConverter.convert(eventRepository.getNearest(calendar.getTime(), PageRequest.of(0, NEAREST_EVENT_SIZE)));
+        return eventConverter.convert(eventRepository.getNearest(calendar.getTime(), PageRequest.of(0, pageSize)));
     }
 
     @Override
@@ -71,5 +68,11 @@ public class DefaultEventService implements EventService {
             event.setStatus(EventConstants.NEW);
         }
         eventRepository.save(event);
+    }
+
+    @Override
+    public EventData getById(Long id) {
+        final Event event = eventRepository.getOne(id);
+        return eventConverter.convert(event);
     }
 }

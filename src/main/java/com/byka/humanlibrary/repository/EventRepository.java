@@ -12,6 +12,6 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
-    @Query(value = "SELECT e from Event e where e.date >= :date ORDER BY e.date asc ")
+    @Query(value = "SELECT e from Event e where e.date >= :date ORDER BY e.date asc, e.id desc ")
     List<Event> getNearest(final @Param("date") Date date, final Pageable pageable);
 }

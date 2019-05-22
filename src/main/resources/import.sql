@@ -10,8 +10,8 @@ insert into Event (id, date, city_id, address, title, descr, status, info, name)
 
 
 П.с. Яшчэ раім вам узяць з сабой, калі ў вас ёсць, свой тэрма-кубак - так вы заўжды будзеце са сваёй кавай/гарбатай. Давайце будзем больш экапрыязнымі разам! :)', 'Живая библиотека в минске');
-insert into Event (id, date, city_id, address, title, descr, status) values (2, '02-11-2021', 1, 'test address', 'title', 'descr', 'NEW');
-insert into Event (id, date, city_id, address, title, descr, status) values (3, '02-11-2018', 1, 'test address', 'title', 'descr', 'NEW');
+insert into Event (id, date, city_id, address, title, status) values (2, '02-11-2021', 1, 'test address', 'title', 'NEW');
+insert into Event (id, date, city_id, address, title, status) values (3, '02-11-2018', 1, 'test address', 'title', 'NEW');
 
 insert into users(nickname, pass) values ('byka', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');
 insert into users(nickname, pass) values ('test1', '$2a$10$d/JqO06hWkCDYzHmvmfN/uw3ia5yd9tXWtI4lRjCez1KRmVPGpr4G');

@@ -8,7 +8,8 @@ public class EventData {
     private String address;
     private String info;
     private String status;
-    private String name;
+    private String title;
+    private Long cityId;
 
     public Long getId() {
         return id;
@@ -58,11 +59,19 @@ public class EventData {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 }
