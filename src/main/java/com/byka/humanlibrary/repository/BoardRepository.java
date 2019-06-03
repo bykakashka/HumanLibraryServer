@@ -13,4 +13,7 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, BoardPK> {
     @Query(value = "SELECT b FROM Board b WHERE b.sessionId = :sessionId")
     List<Board> getBySessionId(@Param("sessionId") Long sessionId);
+
+    @Query(value = "SELECT b FROM Board b WHERE b.bookId = :bookId AND b.session.eventId = :eventId")
+    List<Board> findBoardsForBookAndEvent(@Param("bookId") Long bookId, @Param("eventId") Long eventId);
 }

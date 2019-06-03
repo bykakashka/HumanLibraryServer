@@ -11,4 +11,8 @@ public interface BoardService {
     List<BoardData> findBoardsForCurrent();
 
     void createBoards(Long sessionId, List<BoardData> boardData);
+
+    List<BoardData> findBoardsForBookAndEvent(Long bookId, Long eventId);
+
+    void updateBoardDataForBook(Long eventId, Long bookId, List<BoardData> newBoards);
 }

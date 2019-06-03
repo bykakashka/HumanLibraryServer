@@ -64,6 +64,36 @@ public class DefaultBoardService implements BoardService {
         boardRepository.saveAll(boards);
     }
 
+    @Override
+    public List<BoardData> findBoardsForBookAndEvent(Long bookId, Long eventId) {
+        List<Board> boards = boardRepository.findBoardsForBookAndEvent(bookId, eventId);
+        return boardConverter.convert(boards);
+    }
+
+    @Override
+    public void updateBoardDataForBook(Long eventId, Long bookId, List<BoardData> boardDataList) {
+        List<Board> oldBoards = boardRepository.findBoardsForBookAndEvent(bookId, eventId);
+        List<Board> newBoards = boardModelConverter.convert(boardDataList);
+        List<Board> result = new ArrayList<>();
+
+        newBoards.forEach(board -> {
+            Integer boardNo = board.getBoardNo();
+
+            Optional<Board> dbBoardOptional = oldBoards.stream().filter(b -> b.getBoardNo().equals(boardNo)).findAny();
+            if (dbBoardOptional.isPresent()) {
+                Board dbBoard = dbBoardOptional.get();
+                dbBoard.setMaxUsers(board.getMaxUsers());
+                oldBoards.remove(dbBoard);
+                result.add(dbBoard);
+            } else {
+                result.add(board);
+            }
+        });
+
+        boardRepository.deleteAll(oldBoards);
+        boardRepository.saveAll(result);
+    }
+
     private int getMaxSavedId(Long sessionId) {
         List<Board> savedBoards = boardRepository.getBySessionId(sessionId);
         int maxId = 0;

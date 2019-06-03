@@ -15,4 +15,6 @@ public interface EventService {
     void createOrUpdate(EventData data);
 
     EventData getById(Long id);
+
+    void addToCatalog(Long eventId, Long bookId);
 }

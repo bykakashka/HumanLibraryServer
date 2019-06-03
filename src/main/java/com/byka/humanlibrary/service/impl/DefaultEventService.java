@@ -9,6 +9,9 @@ import com.byka.humanlibrary.data.BookData;
 import com.byka.humanlibrary.data.EventData;
 import com.byka.humanlibrary.data.SessionData;
 import com.byka.humanlibrary.entity.Event;
+import com.byka.humanlibrary.entity.EventBook;
+import com.byka.humanlibrary.entity.EventBookPK;
+import com.byka.humanlibrary.repository.EventBookRepository;
 import com.byka.humanlibrary.repository.EventRepository;
 import com.byka.humanlibrary.service.EventService;
 import org.slf4j.Logger;
@@ -37,6 +40,9 @@ public class DefaultEventService implements EventService {
 
     @Autowired
     private EventModelConverter eventModelConverter;
+
+    @Autowired
+    private EventBookRepository eventBookRepository;
 
     @Override
     public List<EventData> getLatest(int pageSize) {
@@ -74,5 +80,13 @@ public class DefaultEventService implements EventService {
     public EventData getById(Long id) {
         final Event event = eventRepository.getOne(id);
         return eventConverter.convert(event);
+    }
+
+    @Override
+    public void addToCatalog(Long eventId, Long bookId) {
+        EventBook eventBook = new EventBook();
+        eventBook.setBookId(bookId);
+        eventBook.setEventId(eventId);
+        eventBookRepository.save(eventBook);
     }
 }
