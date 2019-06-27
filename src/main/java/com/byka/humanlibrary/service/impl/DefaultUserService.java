@@ -10,6 +10,7 @@ import com.byka.humanlibrary.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,5 +71,10 @@ public class DefaultUserService implements UserService {
         user.setPass(passwordEncoder.encode(data.getPass()));
         user.setRoles(Collections.singletonList("ROLE_" + UserRoleEnum.READER.name()));
         return userConverter.convert(userRepository.save(user));
+    }
+
+    @Override
+    public List<UserData> getUsers(Pageable pageable) {
+        return userConverter.convert(userRepository.findAll(pageable));
     }
 }

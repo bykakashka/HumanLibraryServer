@@ -17,4 +17,6 @@ public interface EventService {
     EventData getById(Long id);
 
     void addToCatalog(Long eventId, Long bookId);
+
+    void removeFromCatalog(Long eventId, Long bookId);
 }

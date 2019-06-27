@@ -6,8 +6,8 @@ public class SessionData {
     private Integer sequence;
     private String startDate;
     private String endDate;
-    private List<BoardData> boards;
     private Long id;
+    private List<BookToSessionData> booksToSession;
 
     public Integer getSequence() {
         return sequence;
@@ -25,14 +25,6 @@ public class SessionData {
         this.startDate = startDate;
     }
 
-    public List<BoardData> getBoards() {
-        return boards;
-    }
-
-    public void setBoards(List<BoardData> boards) {
-        this.boards = boards;
-    }
-
     public Long getId() {
         return id;
     }
@@ -47,5 +39,13 @@ public class SessionData {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public List<BookToSessionData> getBooksToSession() {
+        return booksToSession;
+    }
+
+    public void setBooksToSession(List<BookToSessionData> booksToSession) {
+        this.booksToSession = booksToSession;
     }
 }

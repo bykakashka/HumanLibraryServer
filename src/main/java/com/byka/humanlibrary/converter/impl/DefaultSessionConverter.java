@@ -1,7 +1,7 @@
 package com.byka.humanlibrary.converter.impl;
 
+import com.byka.humanlibrary.converter.BookToSessionConverter;
 import com.byka.humanlibrary.converter.SessionConverter;
-import com.byka.humanlibrary.converter.BoardConverter;
 import com.byka.humanlibrary.data.SessionData;
 import com.byka.humanlibrary.entity.Session;
 import com.byka.humanlibrary.helper.DateHelper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultSessionConverter extends DefaultAbstractConverter<Session, SessionData> implements SessionConverter {
     @Autowired
-    private BoardConverter boardConverter;
+    private BookToSessionConverter bookToSessionConverter;
 
     @Override
     public SessionData convert(Session session) {
@@ -19,7 +19,7 @@ public class DefaultSessionConverter extends DefaultAbstractConverter<Session, S
         result.setStartDate(DateHelper.convertToString(session.getStartDate()));
         result.setEndDate(DateHelper.convertToString(session.getEndDate()));
         result.setSequence(session.getSequence());
-        result.setBoards(boardConverter.convert(session.getBoards()));
+        result.setBooksToSession(bookToSessionConverter.convert(session.getBooksToSession()));
         result.setId(session.getId());
         return result;
     }

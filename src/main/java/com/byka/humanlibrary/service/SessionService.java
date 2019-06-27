@@ -9,9 +9,9 @@ import java.util.List;
 public interface SessionService {
     void createSessions(Long eventId, List<SessionData> sessionData) throws ValidationException;
 
-    RegistrationEvent register(Long sessionId, Integer boardNo);
+    RegistrationEvent register(Long sessionId, Long bookId);
 
-    RegistrationEvent register(Long userId, Long sessionId, Integer boardNo);
+    RegistrationEvent register(Long userId, Long sessionId, Long bookId);
 
     RegistrationEvent unregister(Long sessionId);
 

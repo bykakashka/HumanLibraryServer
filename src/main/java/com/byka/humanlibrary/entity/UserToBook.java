@@ -5,9 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
-@Entity(name = "USER_TO_BOARD")
-@IdClass(value = UserToBoardPK.class)
-public class UserToBoard {
+@Entity(name = "USER_TO_BOOK")
+@IdClass(value = UserToBookPK.class)
+public class UserToBook {
     @Id
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
@@ -16,8 +16,8 @@ public class UserToBoard {
     @Column(name = "SESSION_ID", nullable = false)
     private Long sessionId;
 
-    @Column(name = "BOARD_NO", nullable = false)
-    private Integer boardNo;
+    @Column(name = "BOOK_ID", nullable = false)
+    private Long bookId;
 
     public Long getUserId() {
         return userId;
@@ -35,11 +35,11 @@ public class UserToBoard {
         this.sessionId = sessionId;
     }
 
-    public Integer getBoardNo() {
-        return boardNo;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setBoardNo(Integer boardNo) {
-        this.boardNo = boardNo;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 }

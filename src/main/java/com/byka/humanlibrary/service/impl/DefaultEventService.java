@@ -8,9 +8,11 @@ import com.byka.humanlibrary.converter.SessionConverter;
 import com.byka.humanlibrary.data.BookData;
 import com.byka.humanlibrary.data.EventData;
 import com.byka.humanlibrary.data.SessionData;
+import com.byka.humanlibrary.entity.BookToSession;
 import com.byka.humanlibrary.entity.Event;
 import com.byka.humanlibrary.entity.EventBook;
 import com.byka.humanlibrary.entity.EventBookPK;
+import com.byka.humanlibrary.repository.BookToSessionRepository;
 import com.byka.humanlibrary.repository.EventBookRepository;
 import com.byka.humanlibrary.repository.EventRepository;
 import com.byka.humanlibrary.service.EventService;
@@ -43,6 +45,9 @@ public class DefaultEventService implements EventService {
 
     @Autowired
     private EventBookRepository eventBookRepository;
+
+    @Autowired
+    private BookToSessionRepository bookToSessionRepository;
 
     @Override
     public List<EventData> getLatest(int pageSize) {
@@ -88,5 +93,19 @@ public class DefaultEventService implements EventService {
         eventBook.setBookId(bookId);
         eventBook.setEventId(eventId);
         eventBookRepository.save(eventBook);
+    }
+
+    @Override
+    public void removeFromCatalog(Long eventId, Long bookId) {
+        EventBookPK pk = new EventBookPK();
+        pk.setBookId(bookId);
+        pk.setEventId(eventId);
+        Optional<EventBook> eventBook = eventBookRepository.findById(pk);
+        eventBook.ifPresent(e -> eventBookRepository.delete(e));
+
+        List<BookToSession> bookToSessions = bookToSessionRepository.getBookToSessionsByBookAndEventId(bookId, eventId);
+        if (bookToSessions != null && !bookToSessions.isEmpty()) {
+            bookToSessionRepository.deleteAll(bookToSessions);
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.byka.humanlibrary.data.RegistrationEvent;
 import com.byka.humanlibrary.data.SessionData;
 import com.byka.humanlibrary.entity.*;
 import com.byka.humanlibrary.exceptions.ValidationException;
-import com.byka.humanlibrary.repository.BoardRepository;
+import com.byka.humanlibrary.repository.BookToSessionRepository;
 import com.byka.humanlibrary.repository.SessionRepository;
 import com.byka.humanlibrary.repository.UserToBoardRepository;
 import com.byka.humanlibrary.service.SessionService;
@@ -32,10 +32,10 @@ public class DefaultSessionService implements SessionService {
     private UserToBoardRepository userToBoardRepository;
 
     @Autowired
-    private BoardRepository boardRepository;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private BookToSessionRepository bookToSessionRepository;
 
     @Override
     public void createSessions(Long eventId, List<SessionData> sessionData) throws ValidationException {
@@ -43,7 +43,7 @@ public class DefaultSessionService implements SessionService {
         sessions.sort(Comparator.comparing(Session::getStartDate));
         validate(sessions);
         int seq = 1;
-        for (Session session: sessions) {
+        for (Session session : sessions) {
             session.setEventId(eventId);
             session.setSequence(seq++);
         }
@@ -52,37 +52,50 @@ public class DefaultSessionService implements SessionService {
     }
 
     @Override
-    public RegistrationEvent register(Long sessionId, Integer boardNo) {
-        return register(userService.getCurrent().getId(), sessionId, boardNo);
+    public RegistrationEvent register(Long sessionId, Long bookId) {
+        return register(userService.getCurrent().getId(), sessionId, bookId);
     }
 
     @Override
-    public RegistrationEvent register(Long userId, Long sessionId, Integer boardNo) {
+    public RegistrationEvent register(Long userId, Long sessionId, Long bookId) {
         Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
         RegistrationEvent registrationEvent = isRegisterAvailable(userId, sessionId, sessionOptional);
+
+        if (!sessionOptional.isPresent()) {
+            registrationEvent.setSuccess(false);
+            registrationEvent.setMessage(RegistrationEventMassages.SESSION_IS_NOT_EXIST);
+            return registrationEvent;
+        }
 
         if (!Boolean.FALSE.equals(registrationEvent.getSuccess())) {
             Session session = sessionOptional.get();
 
-            BoardPK pk = new BoardPK();
-            pk.setBoardNo(boardNo);
+            BookToSessionPK pk = new BookToSessionPK();
+            pk.setBookId(bookId);
             pk.setSessionId(sessionId);
-            Board board = boardRepository.getOne(pk);
-            Integer maxUsers = board.getMaxUsers();
+            Optional<BookToSession> bookToSession = bookToSessionRepository.findById(pk);
 
-            synchronized (session) {
-                UserToBoard userToBoard = new UserToBoard();
-                userToBoard.setBoardNo(boardNo);
-                userToBoard.setSessionId(sessionId);
-                Example<UserToBoard> userToBoardExample = Example.of(userToBoard);
-                Long registeredUsers = userToBoardRepository.count(userToBoardExample);
-                if (registeredUsers < maxUsers) {
-                    userToBoard.setUserId(userId);
-                    userToBoardRepository.save(userToBoard);
-                    registrationEvent.setSuccess(true);
-                } else {
-                    registrationEvent.setSuccess(false);
-                    registrationEvent.setMessage(RegistrationEventMassages.OVERLIMIT);
+            if (!bookToSession.isPresent()) {
+                registrationEvent.setSuccess(false);
+                registrationEvent.setMessage(RegistrationEventMassages.SESSION_IS_NOT_EXIST);
+            } else {
+                BookToSession board = bookToSession.get();
+                Integer maxUsers = board.getMaxUsers();
+
+                synchronized (session) {
+                    UserToBook userToBook = new UserToBook();
+                    userToBook.setBookId(bookId);
+                    userToBook.setSessionId(sessionId);
+                    Example<UserToBook> userToBoardExample = Example.of(userToBook);
+                    Long registeredUsers = userToBoardRepository.count(userToBoardExample);
+                    if (registeredUsers < maxUsers) {
+                        userToBook.setUserId(userId);
+                        userToBoardRepository.save(userToBook);
+                        registrationEvent.setSuccess(true);
+                    } else {
+                        registrationEvent.setSuccess(false);
+                        registrationEvent.setMessage(RegistrationEventMassages.OVERLIMIT);
+                    }
                 }
             }
         }
@@ -96,7 +109,7 @@ public class DefaultSessionService implements SessionService {
 
     @Override
     public RegistrationEvent unregister(Long userId, Long sessionId) {
-        final UserToBoardPK pk = new UserToBoardPK();
+        final UserToBookPK pk = new UserToBookPK();
         pk.setSessionId(sessionId);
         pk.setUserId(userService.getCurrent().getId());
         userToBoardRepository.deleteById(pk);
@@ -145,7 +158,7 @@ public class DefaultSessionService implements SessionService {
     }
 
     private boolean alreadyRegistered(Long userId, Long sessionId) {
-        UserToBoardPK pk = new UserToBoardPK();
+        UserToBookPK pk = new UserToBookPK();
         pk.setUserId(userId);
         pk.setSessionId(sessionId);
         return userToBoardRepository.findById(pk).isPresent();
@@ -166,7 +179,7 @@ public class DefaultSessionService implements SessionService {
                 }
 
                 if (i > 0) {
-                    Session prev = copySessions.get(i-1);
+                    Session prev = copySessions.get(i - 1);
                     if (!current.getStartDate().after(prev.getEndDate())) {
                         throw new ValidationException("New session should start after prev ending");
                     }

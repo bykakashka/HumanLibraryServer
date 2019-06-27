@@ -9,7 +9,6 @@ public class UserInfo {
     @Column(name = "ID", nullable =  false, unique = true)
     private Long id;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private User user;

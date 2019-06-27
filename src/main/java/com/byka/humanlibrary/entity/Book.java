@@ -2,9 +2,10 @@ package com.byka.humanlibrary.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "BOOK")
 public class Book {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 

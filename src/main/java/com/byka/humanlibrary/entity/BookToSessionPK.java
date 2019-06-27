@@ -5,16 +5,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
-public class BoardPK implements Serializable {
-    private Integer boardNo;
+public class BookToSessionPK implements Serializable {
+    private Long bookId;
     private Long sessionId;
 
-    public Integer getBoardNo() {
-        return boardNo;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setBoardNo(Integer boardNo) {
-        this.boardNo = boardNo;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public Long getSessionId() {

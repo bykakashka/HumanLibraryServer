@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
-public class UserToBoardPK implements Serializable {
+public class UserToBookPK implements Serializable {
     private Long userId;
 
     private Long sessionId;

@@ -16,12 +16,6 @@ public class Session {
     @Column(name = "SEQUENCE", nullable = false)
     private Integer sequence;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "BOOK_SESSION",
-            joinColumns = {@JoinColumn(name = "SESSION_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "BOOK_ID")})
-    private List<Book> books;
-
     @Column(name = "START_DATE")
     private Date startDate;
 
@@ -31,8 +25,8 @@ public class Session {
     @Column(name = "REG_AVAILABLE")
     private Boolean isRegistrationAvailable;
 
-    @OneToMany(mappedBy = "session", fetch = FetchType.LAZY)
-    private List<Board> boards;
+    @OneToMany(mappedBy = "sessionId", fetch = FetchType.LAZY)
+    private List<BookToSession> booksToSession;
 
     public Long getId() {
         return id;
@@ -50,14 +44,6 @@ public class Session {
         this.sequence = sequence;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -66,12 +52,12 @@ public class Session {
         this.startDate = startDate;
     }
 
-    public List<Board> getBoards() {
-        return boards;
+    public List<BookToSession> getBooksToSession() {
+        return booksToSession;
     }
 
-    public void setBoards(List<Board> boards) {
-        this.boards = boards;
+    public void setBooksToSession(List<BookToSession> booksToSession) {
+        this.booksToSession = booksToSession;
     }
 
     public Date getEndDate() {
