@@ -8,6 +8,7 @@ public class SessionData {
     private String endDate;
     private Long id;
     private List<BookToSessionData> booksToSession;
+    private Boolean isRegistrationAvailable;
 
     public Integer getSequence() {
         return sequence;
@@ -47,5 +48,13 @@ public class SessionData {
 
     public void setBooksToSession(List<BookToSessionData> booksToSession) {
         this.booksToSession = booksToSession;
+    }
+
+    public Boolean getRegistrationAvailable() {
+        return isRegistrationAvailable;
+    }
+
+    public void setRegistrationAvailable(Boolean registrationAvailable) {
+        isRegistrationAvailable = registrationAvailable;
     }
 }

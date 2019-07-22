@@ -7,6 +7,7 @@ public class BookToSessionData {
     private Integer maxUsers;
     private Integer registeredCount;
     private Long sessionId;
+    private Boolean isCurrentRegistered;
 
     public String getBookName() {
         return bookName;
@@ -54,5 +55,13 @@ public class BookToSessionData {
 
     public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public Boolean getIsCurrentRegistered() {
+        return isCurrentRegistered;
+    }
+
+    public void setIsCurrentRegistered(Boolean isCurrentRegistered) {
+        this.isCurrentRegistered = isCurrentRegistered;
     }
 }

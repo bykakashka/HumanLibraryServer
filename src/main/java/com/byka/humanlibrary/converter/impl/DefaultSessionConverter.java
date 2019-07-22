@@ -21,6 +21,7 @@ public class DefaultSessionConverter extends DefaultAbstractConverter<Session, S
         result.setSequence(session.getSequence());
         result.setBooksToSession(bookToSessionConverter.convert(session.getBooksToSession()));
         result.setId(session.getId());
+        result.setRegistrationAvailable(session.getRegistrationAvailable());
         return result;
     }
 }
